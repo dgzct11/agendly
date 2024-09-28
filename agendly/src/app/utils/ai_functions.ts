@@ -15,6 +15,7 @@ export async function generateEvents(textData: string) {
   const result = await streamText({
     model: openai('gpt-4o'), // Specify the model to use
     system: QUIZ_AGENT_PROMPT, // Provide the system prompt
+    
     prompt: textData,
     tools: {
       generateQuizQuestion: {
