@@ -16,11 +16,12 @@ export async function generateEvents(content: string) {
   const { object } = await generateObject({
     model: openai("gpt-4o-mini"),
     schema: z.object({
+      calendarTitle: z.string().describe("The title of the generated calendar. Base it on the content of the provided file, either a class name, event name, or a general theme."),
       events: z.array(
         z.object({
           title: z.string().describe("The title of the event"),
           startDateTime: z.string().describe("The start date and time of the event in ISO 8601. If no time is found, set it to 1 am."),
-          endDateTime: z.string().describe("The end date and time of the event. If no time is found, set it to 11:59 pm."),
+          endDateTime: z.string().describe("The end date and time of the event in ISO 8601. If no time is found, set it to 11:59 pm."),
           description: z.string().describe("Any descriptive information -- locations, links, etc."),
           timed: z.boolean().describe("Whether the event has a specific time or is an all-day event."),
         }) )}

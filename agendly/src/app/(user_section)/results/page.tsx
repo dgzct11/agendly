@@ -15,6 +15,7 @@ const ResultsPage = () => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [events, setEvents] = useState<EventInterface[] | undefined> (undefined);
+    const [calendarTitle, setCalendarTitle] = useState<string | undefined>(undefined);
     
     useEffect( () => {
         const fetch = async () => {
@@ -22,6 +23,7 @@ const ResultsPage = () => {
                 const genreated =  await generateEvents(localStorage.getItem(LOCAL_STORAGE_KEY ))
                 console.log(genreated)
                 setEvents(genreated.events)
+                setCalendarTitle(genreated.calendarTitle)
                 setIsLoading(false);
             }
         } 
@@ -38,7 +40,7 @@ const ResultsPage = () => {
         return <Loading />; 
       }
     
-    return( <Results events={events} setEvents={setEvents} /> );
+    return( <Results events={events} calendarTitle={calendarTitle} setCalendarTitle={setCalendarTitle} setEvents={setEvents} /> );
 
 };
 

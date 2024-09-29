@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { getOAuth2Client } from "@/lib/google";
 import { google } from "googleapis";
+import { validateDateTimeString } from "@/app/utils/general_functions";
 
 export async function GET(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
@@ -51,14 +52,16 @@ export async function POST(req: NextRequest) {
     const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
     // Get the list of events from the request body
-    const eventsData = await req.json();
+    const {eventsData, calendarTitle} = await req.json();
 
-    if (!Array.isArray(eventsData)) {
-      return NextResponse.json(
-        { error: "Request body must be an array of events" },
-        { status: 400 }
-      );
-    }
+   
+
+    const newCalendar = await calendar.calendars.insert({
+      requestBody: {
+        summary: calendarTitle,
+      },
+    });
+    const newCalendarId = newCalendar.data.id;
 
     const createdEvents = [];
     const errors = [];
@@ -67,12 +70,12 @@ export async function POST(req: NextRequest) {
       const parsedEventData = {
         summary: eventData.title,
         description: eventData.description,
-        start: { dateTime: `${eventData.startDateTime}-07:00` },
-        end: { dateTime: `${eventData.endDateTime}-07:00` },
+        start: { dateTime: `${validateDateTimeString(eventData.startDateTime)}-07:00` },
+        end: { dateTime: `${validateDateTimeString(eventData.endDateTime)}-07:00` },
       }
       try {
         const event = await calendar.events.insert({
-          calendarId: "primary",
+          calendarId: newCalendarId ?? "primary",
           requestBody: parsedEventData,
         });
         createdEvents.push(event.data);

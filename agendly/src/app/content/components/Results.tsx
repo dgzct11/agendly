@@ -11,10 +11,12 @@ import Link from 'next/link'
 
 interface ResultsComponentProps {
   events: EventInterface[],
-  setEvents: (events: EventInterface[]) => void
+  setEvents: (events: EventInterface[]) => void,
+  calendarTitle: string | undefined,
+  setCalendarTitle: (title: string) => void
 }
 
-export default function ResultsComponent({events, setEvents}: ResultsComponentProps) {
+export default function ResultsComponent({events, setEvents, calendarTitle, setCalendarTitle}: ResultsComponentProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [editingEvent, setEditingEvent] = useState<number | null>(null)
   const [editedDescription, setEditedDescription] = useState<string>('')
@@ -64,8 +66,10 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
     DownloadICS(events)
   }
 
-  const handleOption2 = () => {
-    saveEventsToCalendar(events)
+  const handleOption2 = async () => {
+    setGoogleCalendarLoading(true);
+    await saveEventsToCalendar(events, calendarTitle)
+    setGoogleCalendarLoading(false);
   }
 
   const formatDate = (dateString: string) => {
