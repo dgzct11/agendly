@@ -12,17 +12,19 @@ import Link from 'next/link'
 interface ResultsComponentProps {
   events: EventInterface[],
   setEvents: (events: EventInterface[]) => void,
-  calendarTitle: string | undefined,
+  calendarTitle: string,
   setCalendarTitle: (title: string) => void
 }
 
 export default function ResultsComponent({events, setEvents, calendarTitle, setCalendarTitle}: ResultsComponentProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [editingEvent, setEditingEvent] = useState<number | null>(null)
+  const [editingTitle, setEditingTitle] = useState(false)
   const [editedDescription, setEditedDescription] = useState<string>('')
-
-  //google calendar 
-  const [googleCalendarLoading, setGoogleCalendarLoading] = useState(false);
+  const [editedTitle, setEditedTitle] = useState<string>('')
+  const [editedStartDate, setEditedStartDate] = useState<string>('')
+  const [editedEndDate, setEditedEndDate] = useState<string>('')
+  const [googleCalendarLoading, setGoogleCalendarLoading] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -30,6 +32,7 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setSelectedIndex(null)
         setEditingEvent(null)
+        setEditingTitle(false)
       }
     }
 
@@ -44,14 +47,17 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
     setEditingEvent(null)
   }
 
-  const handleEdit = (index: number, description: string) => {
+  const handleEdit = (index: number, event: EventInterface) => {
     setEditingEvent(index)
-    setEditedDescription(description)
+    setEditedDescription(event.description)
+    setEditedTitle(event.title)
+    setEditedStartDate(event.startDateTime)
+    setEditedEndDate(event.endDateTime)
   }
 
   const handleSave = (index: number) => {
     setEvents(events.map((event, i) => 
-      i === index ? { ...event, description: editedDescription } : event
+      i === index ? { ...event, description: editedDescription, title: editedTitle, startDateTime: editedStartDate, endDateTime: editedEndDate } : event
     ))
     setEditingEvent(null)
   }
@@ -67,9 +73,9 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
   }
 
   const handleOption2 = async () => {
-    setGoogleCalendarLoading(true);
+    setGoogleCalendarLoading(true)
     await saveEventsToCalendar(events, calendarTitle)
-    setGoogleCalendarLoading(false);
+    setGoogleCalendarLoading(false)
   }
 
   const formatDate = (dateString: string) => {
@@ -86,7 +92,30 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
 
   return (
     <div className="container mx-auto p-4 max-w-3xl mt-20" ref={containerRef}>
-      <h1 className="text-3xl font-bold mb-6 text-center tracking-tighter">Calendar Events</h1>
+      {editingTitle ? (
+        <div className="flex items-center justify-center mb-6">
+          <Input
+            value={calendarTitle}
+            onChange={(e) => setCalendarTitle(e.target.value)}
+            className="text-3xl font-bold text-center tracking-tighter"
+          />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setEditingTitle(false)}
+            className="ml-2"
+          >
+            <Save className="w-4 h-4" />
+          </Button>
+        </div>
+      ) : (
+        <h1 
+          className="text-3xl font-bold mb-6 text-center tracking-tighter cursor-pointer"
+          onClick={() => setEditingTitle(true)}
+        >
+          {calendarTitle}
+        </h1>
+      )}
 
       <ul className="space-y-2">
         {events.map((event, index) => (
@@ -115,7 +144,7 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
                   className="ml-2"
                   onClick={(e) => {
                     e.stopPropagation()
-                    handleEdit(index, event.description)
+                    handleEdit(index, event)
                   }}
                 >
                   <Edit className="w-4 h-4" />
@@ -138,9 +167,28 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
             {editingEvent === index && (
               <div className="mt-2" onClick={(e) => e.stopPropagation()}>
                 <Input
+                  value={editedTitle}
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                  className="mb-2"
+                  placeholder="Event Title"
+                />
+                <Input
+                  type="datetime-local"
+                  value={editedStartDate}
+                  onChange={(e) => setEditedStartDate(e.target.value)}
+                  className="mb-2"
+                />
+                <Input
+                  type="datetime-local"
+                  value={editedEndDate}
+                  onChange={(e) => setEditedEndDate(e.target.value)}
+                  className="mb-2"
+                />
+                <Input
                   value={editedDescription}
                   onChange={(e) => setEditedDescription(e.target.value)}
                   className="mb-2"
+                  placeholder="Event Description"
                 />
                 <Button
                   variant="outline"
@@ -156,19 +204,22 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
         ))}
       </ul>
       <div className="mt-6 flex justify-center space-x-4">
-        <Button onClick={handleOption1}className='bg-blue-500'> Save as an .ICS</Button>
+        <Button onClick={handleOption1} className='bg-blue-500'>Save as an .ICS</Button>
         {
           googleCalendarLoading ? (
-            <Button className='bg-blue-500' disabled>
+            <Button className='bg-blue-500 ' disabled>
               <RefreshCw className="animate-spin w-5 h-5 mr-2" />
               Syncing to Google Calendar
             </Button>
           ) : (
-            <Button onClick={handleOption2} className='bg-blue-500'>Sync to Google Calendar</Button>
+            <Button onClick={handleOption2} className='bg-blue-500 '>Sync to Google Calendar</Button>
           )
         }
-        
+
       </div>
+      <Link href="/upload_file" passHref className='mt-2 flex justify-center space-x-4'>
+          <Button className='bg-blue-500 w-[340px] '>Upload More</Button>
+        </Link>
     </div>
   )
 }
