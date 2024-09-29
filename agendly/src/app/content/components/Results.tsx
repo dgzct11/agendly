@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Edit, Save, Trash2 } from 'lucide-react'
+import { Edit, RefreshCw, Save, Trash2 } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DownloadICS } from "../downloadICS"
@@ -18,6 +18,9 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [editingEvent, setEditingEvent] = useState<number | null>(null)
   const [editedDescription, setEditedDescription] = useState<string>('')
+
+  //google calendar 
+  const [googleCalendarLoading, setGoogleCalendarLoading] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
