@@ -36,35 +36,52 @@ export async function GET(req: NextRequest) {
   }
 }
 
-
 export async function POST(req: NextRequest) {
-    const token = await getToken({ req, secret: process.env.AUTH_SECRET });
-  
-    if (!token?.accessToken || !token?.refreshToken) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-  
-    try {
-      const oauth2Client = getOAuth2Client(
-        token.accessToken as string,
-        token.refreshToken as string
-      );
-      const calendar = google.calendar({ version: "v3", auth: oauth2Client });
-      console.log(req.body)
-      const eventData = await req.json();
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
 
-      const event = await calendar.events.insert({
-        calendarId: "primary",
-        requestBody: eventData,
-      });
-      
-      return NextResponse.json(event.data);
-    } catch (error) {
-      console.error("Error creating event:", error);
+  if (!token?.accessToken || !token?.refreshToken) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const oauth2Client = getOAuth2Client(
+      token.accessToken as string,
+      token.refreshToken as string
+    );
+    const calendar = google.calendar({ version: "v3", auth: oauth2Client });
+
+    // Get the list of events from the request body
+    const eventsData = await req.json();
+
+    if (!Array.isArray(eventsData)) {
       return NextResponse.json(
-        { error: "Failed to create event" },
-        { status: 500 }
+        { error: "Request body must be an array of events" },
+        { status: 400 }
       );
     }
+
+    const createdEvents = [];
+    const errors = [];
+
+    for (const eventData of eventsData) {
+      try {
+        const event = await calendar.events.insert({
+          calendarId: "primary",
+          requestBody: eventData,
+        });
+        createdEvents.push(event.data);
+      } catch (error: any) {
+        console.error("Error creating event:", error);
+        errors.push({ eventData, error: error.message });
+      }
+    }
+
+    return NextResponse.json({ createdEvents, errors });
+  } catch (error: any) {
+    console.error("Error creating events:", error);
+    return NextResponse.json(
+      { error: "Failed to create events" },
+      { status: 500 }
+    );
   }
-  
+}
