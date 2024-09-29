@@ -20,6 +20,10 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
   const [selectedIndex, setSelectedIndexs] = useState<number | null>(null)
   const [editingEvent, setEditingEvent] = useState<number | null>(null)
   const [editedSubtext, setEditedSubtext] = useState<string>('')
+
+  //google calendar functionality
+  const [googleCalendarLoading, setGoogleCalendarLoading] = useState(false);
+
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -61,8 +65,10 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
     // Implement option 1 functionality here
   }
 
-  const handleOption2 = () => {
-    saveEventsToCalendar(events);
+  const handleOption2 = async () => {
+    setGoogleCalendarLoading(true);
+    await saveEventsToCalendar(events);
+    setGoogleCalendarLoading(false);
     // Implement option 2 functionality here
   }
 
@@ -132,8 +138,18 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
         ))}
       </ul>
       <div className="mt-6 flex justify-center space-x-4">
-        <Button onClick={handleOption1}className='bg-blue-500'> Save as an .ICS</Button>
-        <Button onClick={handleOption2} className='bg-blue-500'>Sync to Google Calendar</Button>
+        <Link href={"/upload_file"}><Button onClick={handleOption1}className='bg-blue-500'> Save as an .ICS</Button></Link>
+        {
+          googleCalendarLoading ? (
+            <Button className='bg-blue-500' disabled>
+              <RefreshCw className="animate-spin w-5 h-5 mr-2" />
+              Syncing to Google Calendar
+            </Button>
+          ) : (
+            <Button onClick={handleOption2} className='bg-blue-500'>Sync to Google Calendar</Button>
+          )
+        }
+        
       </div>
     </div>
   )

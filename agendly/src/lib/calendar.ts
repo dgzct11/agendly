@@ -10,6 +10,7 @@ export async function saveEventsToCalendar(events: EventInterface[]) {
     credentials: "include",
   });
     const data = await res.json();
+    
     if (res.ok) {
         console.log('Events saved successfully');
         return true;

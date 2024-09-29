@@ -82,11 +82,11 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ createdEvents, errors });
+    return NextResponse.json({createdEvents: createdEvents.length});
   } catch (error: any) {
     console.error("Error creating events:", error);
     return NextResponse.json(
-      { error: "Failed to create events" },
+      { error: "Failed to create events"},
       { status: 500 }
     );
   }
