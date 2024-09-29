@@ -29,7 +29,7 @@ export async function generateEvents(content: string) {
   return (object);
 }
 
-function convertEventsToICS(events: Array<{ title: string; date: string; time: string; description: string }>): string {
+export async function convertEventsToICS(events: Array<{ title: string; date: string; time: string; description: string }>): string {
   const calendar = ical({ name: 'Generated Events Calendar' });
 
   events.forEach(event => {

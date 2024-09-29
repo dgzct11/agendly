@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Check, Edit, Save, RefreshCw } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {DownloadICS} from "../downloadICS"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 
@@ -49,8 +50,9 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
     setEditingEvent(null)
   }
 
-  const handleOption1 = () => {
+  const handleOption1 = async () => {
     console.log('Option 1 selected')
+    await DownloadICS(events)
     // Implement option 1 functionality here
   }
 
