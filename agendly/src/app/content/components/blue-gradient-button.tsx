@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react'
-
-export default function Component() {
+interface BlueGradientButtonProps {
+  type?: 'button' | 'submit' | 'reset'
+}
+export default function BlueGradientButtonComponent({type}: BlueGradientButtonProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -12,6 +14,7 @@ export default function Component() {
       `}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      type={type}
     >
       Sign Up
       <style jsx>{`

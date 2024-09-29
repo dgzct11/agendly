@@ -9,7 +9,7 @@
  *  const { user, error, isLoading } = useUser();
 
  */
-import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { SessionProvider } from "next-auth/react";
 
 export default function UserSectionLayout({
     children,
@@ -19,9 +19,9 @@ export default function UserSectionLayout({
 
     return (
 
-        <UserProvider>
+        <SessionProvider>
             {children}
-        </UserProvider>
+        </SessionProvider>
 
     );
 
