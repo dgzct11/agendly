@@ -60,25 +60,25 @@ export default function Upload() {
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(true);
-    console.log("Drag over")
   };
 
   const handleDragLeave = () => {
     setDragging(false);
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setDragging(false);
 
     const file = e.dataTransfer.files[0];
-    
-
+    const text = await extractTextFromPDF(file);
+    setPdfText(text);
+    localStorage.setItem(LOCAL_STORAGE_KEY, text);
+    router.push("/results")
   };
 
   return (
-    <div className="flex flex-col gap-20 w-screen h-screen bg-gradient-to-br from-gray-100 to-gray-300 items-center overflow-hidden">
-      
+    <div className="flex flex-col pt-12 gap-20 w-min-screen w-max-full h-screen bg-gradient-to-br from-white to-gray-100 items-center overflow-hidden">
       <div className="flex flex-col h-16 w-5/6">
         <h1 className="text-3xl font-bold items-center mt-auto ml-auto mr-auto text-gray-700">
           Turn .PDF Files to .ISC Files
@@ -89,7 +89,7 @@ export default function Upload() {
         
       </div>
       <div 
-        className={`items-center shadow-lg flex h-1/2 w-4/6 max-w-3/6 rounded-sm border border-opacity-75 border-4 border-gray-800 border-dotted ${dragging ? 'bg-blue-100' : 'bg-white'}`}
+        className={`items-center shadow-lg flex h-1/2 w-4/6 max-w-3/6 rounded-sm border border-opacity-75 border-4 border-gray-800 border-dotted ${dragging ? 'bg-blue-100' : 'bg-gray-200'}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}>
