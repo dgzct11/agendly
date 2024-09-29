@@ -78,7 +78,7 @@ export default function Upload() {
 
   return (
     <div className="flex flex-col gap-20 w-screen h-screen bg-gradient-to-br from-gray-100 to-gray-300 items-center overflow-hidden">
-      <Navbar></Navbar>
+      
       <div className="flex flex-col h-16 w-5/6">
         <h1 className="text-3xl font-bold items-center mt-auto ml-auto mr-auto text-gray-700">
           Turn .PDF Files to .ISC Files
