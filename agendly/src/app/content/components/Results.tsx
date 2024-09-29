@@ -6,12 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
-interface Event {
-  id: string
-  title: string
-  date: string
-  subtext: string
-}
 
 const sampleEvents: Event[] = [
   { id: '1', title: 'Conference Call', date: "May 15 2023", subtext: 'Discuss Q4 projections with the team' },
