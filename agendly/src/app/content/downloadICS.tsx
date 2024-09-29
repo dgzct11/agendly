@@ -1,7 +1,8 @@
 import {convertEventsToICS} from '../utils/ai_functions'
+import { EventInterface } from '../utils/types';
 
 
-export async function DownloadICS(events: Array<{ title: string; date: string; time: string; description: string }>) {
+export async function DownloadICS(events:EventInterface[]) {
     // Wait for the ICS data to be generated
     const icsData = await convertEventsToICS(events);
     

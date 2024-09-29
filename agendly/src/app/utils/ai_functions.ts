@@ -43,7 +43,7 @@ export async function convertEventsToICS(events: EventInterface[]) {
       end,   // End date
       summary: event.title, // Event title
       description: event.description, // Event description
-      allDay: !event.timed, // If 'timed' is false, it's an all-day event
+      
     } as ICalEventData);
   });
 
