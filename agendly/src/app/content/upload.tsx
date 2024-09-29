@@ -1,13 +1,13 @@
 'use client'
 import { useRef, useState } from "react";
+import { PDFDocumentProxy, getDocument } from 'pdfjs-dist';
 import Navbar from "./components/Navbar";
 
 
 export default function Upload() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
+  const [pdfText, setPdfText] = useState<string>('');
 
   const handleClick = () => {
     if (fileInputRef.current){
@@ -18,11 +18,36 @@ export default function Upload() {
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
-    setSelectedFile(file);
-    console.log(selectedFile)
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    const text = await extractTextFromPDF(file);
+    setPdfText(text);
+    console.log(pdfText);
   }
+
+
+  const extractTextFromPDF = async (file: File): Promise<string> => {
+    const pdfData = await file.arrayBuffer();
+    const loadingTask = getDocument({ data: pdfData });
+    const pdf: PDFDocumentProxy = await loadingTask.promise;
+  
+    let textContent = '';
+  
+    // Iterate over each page of the PDF
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+  
+      // Extract text content from the page
+      const pageText = content.items.map((item: any) => item.str).join(' ');
+      textContent += `${pageText}\n`;  // Add text from each page to the final string
+    }
+  
+    return textContent;  // Return the final extracted text
+  };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -40,12 +65,7 @@ export default function Upload() {
 
     const file = e.dataTransfer.files[0];
     
-    // Check if the dropped file is a PDF
-    if (file && file.type === 'application/pdf') {
-      setSelectedFile(file);
-    } else {
-      setSelectedFile(null);
-    }
+
   };
 
   return (
