@@ -20,6 +20,7 @@ const ResultsPage = () => {
     useEffect( () => {
         const fetch = async () => {
             if(!events && isLoading){
+                //@ts-ignore
                 const genreated =  await generateEvents(localStorage.getItem(LOCAL_STORAGE_KEY ))
                 console.log(genreated)
                 setEvents(genreated.events)
@@ -39,7 +40,7 @@ const ResultsPage = () => {
     if (isLoading) {
         return <Loading />; 
       }
-    
+    //@ts-ignore
     return( <Results events={events} calendarTitle={calendarTitle} setCalendarTitle={setCalendarTitle} setEvents={setEvents} /> );
 
 };

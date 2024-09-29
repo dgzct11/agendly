@@ -32,6 +32,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return await refreshAccessToken(token);
         },
         async session({ session, token }) {
+          //@ts-ignore
           session.user = token;
           return session;
         },
