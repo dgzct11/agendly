@@ -38,7 +38,7 @@ const ResultsPage = () => {
         return <Loading />; 
       }
     
-    return( <Results events={events} /> );
+    return( <Results events={events} setEvents={setEvents} /> );
 
 };
 
