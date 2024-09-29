@@ -10,6 +10,7 @@
 
  */
 import { SessionProvider } from "next-auth/react";
+import Navbar from "../content/components/Navbar";
 
 export default function UserSectionLayout({
     children,
@@ -20,6 +21,7 @@ export default function UserSectionLayout({
     return (
 
         <SessionProvider>
+            <Navbar/>
             {children}
         </SessionProvider>
 
