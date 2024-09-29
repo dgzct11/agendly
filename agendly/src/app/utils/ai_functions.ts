@@ -13,7 +13,7 @@ import { PROMPTGEN } from '../content/ai_prompts';
 
 export async function generateEvents(content: string) {
   const { object } = await generateObject({
-    model: openai("gpt-4o"),
+    model: openai("gpt-4o-2024-08-06"),
     schema: z.object({
       events: z.array(
         z.object({
