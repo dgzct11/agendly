@@ -32,8 +32,8 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
     }
   }, [])
 
-  const handleSelect = (id: string) => {
-    setSelectedEvent(selectedEvent === id ? null : id)
+  const handleSelect = (title: string) => {
+    setSelectedEvent(selectedEvent === title ? null : title)
     setEditingEvent(null)
   }
 
@@ -44,7 +44,7 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
 
   const handleSave = (id: string) => {
     setEvents(events.map(event => 
-      event.id === id ? { ...event, subtext: editedSubtext } : event
+      event.title === title ? { ...event, subtext: editedSubtext } : event
     ))
     setEditingEvent(null)
   }
