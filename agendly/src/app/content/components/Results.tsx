@@ -5,23 +5,24 @@ import { Check, Edit, Save, RefreshCw } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { EventInterface } from '@/app/utils/types'
 
 
 interface ResultsComponentProps {
-  events: Event[],
-  setEvents: (events: Event[]) => void
+  events: EventInterface[],
+  setEvents: (events: EventInterface[]) => void
 }
 
 export default function ResultsComponent({events, setEvents}: ResultsComponentProps) {
-  const [selectedEvent, setSelectedEvent] = useState<string | null>(null)
-  const [editingEvent, setEditingEvent] = useState<string | null>(null)
+  const [selectedIndex, setSelectedIndexs] = useState<number | null>(null)
+  const [editingEvent, setEditingEvent] = useState<number | null>(null)
   const [editedSubtext, setEditedSubtext] = useState<string>('')
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setSelectedEvent(null)
+        setSelectedIndexs(null)
         setEditingEvent(null)
       }
     }
@@ -32,19 +33,19 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
     }
   }, [])
 
-  const handleSelect = (title: string) => {
-    setSelectedEvent(selectedEvent === title ? null : title)
+  const handleSelect = (index: number) => {
+    setSelectedIndexs(selectedIndex === index ? null : index)
     setEditingEvent(null)
   }
 
-  const handleEdit = (id: string, subtext: string) => {
-    setEditingEvent(id)
+  const handleEdit = (index: number, subtext: string) => {
+    setEditingEvent(index)
     setEditedSubtext(subtext)
   }
 
-  const handleSave = (id: string) => {
-    setEvents(events.map(event => 
-      event.title === title ? { ...event, subtext: editedSubtext } : event
+  const handleSave = (index: number) => {
+    setEvents(events.map((event, index) => 
+      editingEvent ==  index ? { ...event, description: editedSubtext } : event
     ))
     setEditingEvent(null)
   }
@@ -69,21 +70,21 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
       <h1 className="text-3xl font-bold mb-6 text-center tracking-tighter">Calendar Events</h1>
 
       <ul className="space-y-2">
-        {events.map((event) => (
+        {events.map((event, index) => (
           <li
-            key={event.id}
+            key={index}
             className={`bg-card rounded-lg shadow-sm transition-all duration-300 ease-in-out p-3
-              ${selectedEvent === event.id ? 'ring-2 ring-primary' : ''}
+              ${selectedIndex === index ? 'ring-2 ring-primary' : ''}
             `}
           >
             <div className="flex items-center">
               <div
                 className={`w-5 h-5 rounded-full border-2 border-primary mr-3 flex items-center justify-center cursor-pointer
-                  ${selectedEvent === event.id ? 'bg-primary' : 'bg-background'}
+                  ${selectedIndex === index ? 'bg-primary' : 'bg-background'}
                 `}
-                onClick={() => handleSelect(event.id)}
+                onClick={() => handleSelect(index)}
               >
-                {selectedEvent === event.id && <Check className="text-primary-foreground w-3 h-3" />}
+                {selectedIndex === index && <Check className="text-primary-foreground w-3 h-3" />}
               </div>
               <div className="flex-grow">
                 <div className="flex items-center justify-between">
@@ -92,29 +93,29 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
                     variant="ghost"
                     size="sm"
                     className="ml-2"
-                    onClick={() => handleEdit(event.id, event.subtext)}
+                    onClick={() => handleEdit(index, event.description)}
                   >
                     <Edit className="w-4 h-4" />
                     <span className="sr-only">Edit Options</span>
                   </Button>
                 </div>
                 <div className="text-sm text-muted-foreground text-gray-500">{event.date}</div>
-                {(selectedEvent === event.id || editingEvent === event.id) && (
-                  <div className="mt-2 text-sm text-gray-700">{event.subtext}</div>
+                {(selectedIndex === index || editingEvent === index) && (
+                  <div className="mt-2 text-sm text-gray-700">{event.description}</div>
                 )}
               </div>
             </div>
-            {editingEvent === event.id && (
+            {editingEvent === index && (
               <div className="mt-2">
                 <Input
                   value={editedSubtext}
-                  onChange={(e) => setEditedSubtext(e.target.value)}
+                  onChange={(e) => setEditedSubtext(e.target.value) }
                   className="mb-2"
                 />
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => handleSave(event.id)}
+                  onClick={() => handleSave(index)}
                 >
                   <Save className="w-4 h-4 mr-2" />
                   Save
