@@ -10,6 +10,7 @@ import { openai } from "@ai-sdk/openai"
 import { generateObject } from 'ai'; // Importing utility functions from the 'ai' module
 import ical, { ICalEventData } from 'ical-generator';
 import { PROMPTGEN } from '../content/ai_prompts';
+import { EventInterface } from './types';
 
 export async function generateEvents(content: string) {
   const { object } = await generateObject({
@@ -30,18 +31,19 @@ export async function generateEvents(content: string) {
   return (object);
 }
 
-export async function convertEventsToICS(events: Array<{ title: string; date: string; time: string; description: string }>) {
+export async function convertEventsToICS(events: EventInterface[]) {
   const calendar = ical({ name: 'Generated Events Calendar' });
 
   events.forEach(event => {
-    const [year, month, day] = event.date.split('-').map(Number);
-    const [hour, minute] = event.time.split(':').map(Number);
+    const start = new Date(event.startDateTime);
+    const end = new Date(event.endDateTime);
 
     calendar.createEvent({
-      start: new Date(year, month - 1, day, hour, minute),
-      end: new Date(year, month - 1, day, hour + 1, minute), // Assuming 1-hour duration if no end time provided
-      summary: event.title,
-      description: event.description,
+      start, // Start date
+      end,   // End date
+      summary: event.title, // Event title
+      description: event.description, // Event description
+      allDay: !event.timed, // If 'timed' is false, it's an all-day event
     } as ICalEventData);
   });
 

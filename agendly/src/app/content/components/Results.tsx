@@ -132,7 +132,7 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
         ))}
       </ul>
       <div className="mt-6 flex justify-center space-x-4">
-        <Link href={"/upload_file"}><Button onClick={handleOption1}className='bg-blue-500'> Save as an .ICS</Button></Link>
+        <Button onClick={handleOption1}className='bg-blue-500'> Save as an .ICS</Button>
         <Button onClick={handleOption2} className='bg-blue-500'>Sync to Google Calendar</Button>
       </div>
     </div>
