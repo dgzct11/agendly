@@ -1,13 +1,19 @@
 'use client'
 import { useRef, useState } from "react";
-import { PDFDocumentProxy, getDocument } from 'pdfjs-dist';
+import { PDFDocumentProxy, getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
 import Navbar from "./components/Navbar";
+import { useRouter } from "next/navigation";
+import { LOCAL_STORAGE_KEY } from "@/lib/constants";
+
+// Set the workerSrc to the PDF.js worker file
+GlobalWorkerOptions.workerSrc = "./pdf.worker.mjs";
 
 
 export default function Upload() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
   const [pdfText, setPdfText] = useState<string>('');
+  const router = useRouter();
 
   const handleClick = () => {
     if (fileInputRef.current){
@@ -25,8 +31,10 @@ export default function Upload() {
     const file = files[0];
     const text = await extractTextFromPDF(file);
     setPdfText(text);
-    console.log(pdfText);
+    localStorage.setItem(LOCAL_STORAGE_KEY, text);
+    router.push("/results")
   }
+
 
 
   const extractTextFromPDF = async (file: File): Promise<string> => {
@@ -93,7 +101,7 @@ export default function Upload() {
           <p className="text-center text-sm text-blue-900 opacity-70">
             or drop PDFs here
           </p>
-          <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden">
+          <input type="file" accept=".pdf" ref={fileInputRef} onChange={handleFileChange} className="hidden">
           </input>
         </div>
       </div>
