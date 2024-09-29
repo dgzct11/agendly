@@ -1,5 +1,6 @@
 'use client'
 import { useRef, useState } from "react";
+import Navbar from "./components/Navbar";
 
 
 export default function Upload() {
@@ -48,9 +49,10 @@ export default function Upload() {
   };
 
   return (
-    <div className="flex flex-col gap-28 w-screen h-screen bg-gradient-to-br from-gray-100 to-gray-300 items-center overflow-hidden">
-      <div className="flex flex-col mt-10 h-40 w-5/6">
-        <h1 className="text-3xl font-bold items-center mt-auto ml-auto mr-auto text-gray-600">
+    <div className="flex flex-col gap-20 w-screen h-screen bg-gradient-to-br from-gray-100 to-gray-300 items-center overflow-hidden">
+      <Navbar></Navbar>
+      <div className="flex flex-col h-16 w-5/6">
+        <h1 className="text-3xl font-bold items-center mt-auto ml-auto mr-auto text-gray-700">
           Turn .PDF Files to .ISC Files
         </h1>
         <h3 className="text-xl text-gray-700 opacity-50 ml-auto mr-auto">
@@ -59,7 +61,7 @@ export default function Upload() {
         
       </div>
       <div 
-        className={`items-center shadow-lg flex h-1/2 w-4/6 max-w-3/6 rounded-sm border border-opacity-75 border-4 border-gray-500 border-solid ${dragging ? 'bg-gray-300' : 'bg-gray-200'}`}
+        className={`items-center shadow-lg flex h-1/2 w-4/6 max-w-3/6 rounded-sm border border-opacity-75 border-4 border-gray-800 border-dotted ${dragging ? 'bg-blue-100' : 'bg-white'}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}>
@@ -68,7 +70,7 @@ export default function Upload() {
           onClick={handleClick}>
             Upload PDF Files
           </button>
-          <p className="text-center text-sm text-blue-900 opacity-50">
+          <p className="text-center text-sm text-blue-900 opacity-70">
             or drop PDFs here
           </p>
           <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden">

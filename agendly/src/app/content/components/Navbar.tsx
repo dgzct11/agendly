@@ -1,6 +1,5 @@
 'use client'
 import Link from "next/link";
-import Logo from "../../../../public/AgendlyLogo.svg"
 
 const Navbar = () => {
     return (<div className="pt-5 ">
@@ -9,7 +8,6 @@ const Navbar = () => {
         <div>
             <Link href={"/"} className="flex gap-1 items-center text-2xl">
                 <h1 className="text-dark font-bold">Agendly</h1> 
-                <Logo className="w-8 h-8"/>
             </Link>
         </div> 
 
