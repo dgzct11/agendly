@@ -8,6 +8,7 @@ import { DownloadICS } from "../downloadICS"
 import { EventInterface } from '@/app/utils/types'
 import { saveEventsToCalendar } from '@/lib/calendar'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 interface ResultsComponentProps {
   events: EventInterface[],
@@ -70,12 +71,14 @@ export default function ResultsComponent({events, setEvents, calendarTitle, setC
 
   const handleOption1 = () => {
     DownloadICS(events)
+    toast.success('Events downloaded as .ICS file');
   }
 
   const handleOption2 = async () => {
     setGoogleCalendarLoading(true)
     await saveEventsToCalendar(events, calendarTitle)
-    setGoogleCalendarLoading(false)
+    setGoogleCalendarLoading(false);
+    toast.success('Events synced to Google Calendar');
   }
 
   const formatDate = (dateString: string) => {

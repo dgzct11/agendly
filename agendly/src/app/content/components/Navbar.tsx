@@ -16,9 +16,6 @@ const Navbar = () => {
             <Link href={"/upload_file"} className="items-center text-xl hover:text-blue-700">
                 <h1 className="text-dark font-bold">Upload File</h1> 
             </Link>
-            <Link href={"/"} className="items-center text-xl hover:text-blue-700">
-                <h1 className="text-dark font-bold">History</h1> 
-            </Link>
             <div className="ml-auto mr-8">
                 {session ? (
                     <>
