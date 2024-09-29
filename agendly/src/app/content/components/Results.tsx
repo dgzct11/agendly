@@ -7,16 +7,12 @@ import { Input } from "@/components/ui/input"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 
-const sampleEvents: Event[] = [
-  { id: '1', title: 'Conference Call', date: "May 15 2023", subtext: 'Discuss Q4 projections with the team' },
-  { id: '2', title: 'Project Deadline', date: '2023-09-20', subtext: 'Submit final report for client review' },
-  { id: '3', title: 'Team Building', date: '2023-09-25', subtext: 'Outdoor activities and lunch with colleagues' },
-  { id: '4', title: 'Training Session', date: '2023-09-30', subtext: 'New software implementation workshop' },
-  { id: '5', title: 'Client Meeting', date: '2023-10-05', subtext: 'Presentation of new marketing strategy' },
-]
+interface ResultsComponentProps {
+  events: Event[],
+  setEvents: (events: Event[]) => void
+}
 
-export default function Component() {
-  const [events, setEvents] = useState<Event[]>(sampleEvents)
+export default function ResultsComponent({events, setEvents}: ResultsComponentProps) {
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null)
   const [editingEvent, setEditingEvent] = useState<string | null>(null)
   const [editedSubtext, setEditedSubtext] = useState<string>('')

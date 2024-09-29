@@ -18,15 +18,10 @@ const ResultsPage = () => {
     
     useEffect( () => {
         const fetch = async () => {
-            if(!localStorage.getItem(EVENTS_STORAGE_KEY)) {
-                const genreated =  await generateEvents(localStorage.getItem(EVENTS_STORAGE_KEY ) ?? "default msg" )
-                localStorage.setItem(EVENTS_STORAGE_KEY, JSON.stringify(genreated.events));
+            if(!events && isLoading){
+                const genreated =  await generateEvents(localStorage.getItem(LOCAL_STORAGE_KEY ))
                 console.log(genreated)
                 setEvents(genreated.events)
-                setIsLoading(false);
-            }
-            else{
-                setEvents(JSON.parse(localStorage.getItem(EVENTS_STORAGE_KEY) as string))
                 setIsLoading(false);
             }
         } 
@@ -43,7 +38,7 @@ const ResultsPage = () => {
         return <Loading />; 
       }
     
-    return( <Results/> );
+    return( <Results events={events} /> );
 
 };
 
