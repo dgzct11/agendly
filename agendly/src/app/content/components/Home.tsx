@@ -10,7 +10,7 @@ const Home = () => {
                 lg:text-7xl/none text-dark ">
                     Agendas, simplified
                 </h1>
-                <p className="text-gray-300 pb-10">Managing your calendar has never been easier</p>
+                <p className="text-gray-400 pb-10">Managing your calendar has never been easier</p>
             </div>
 
 
