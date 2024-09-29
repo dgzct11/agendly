@@ -1,33 +1,47 @@
 /**
- *  Server Actions to parse text from file and generate events objects
- * 
- * 
- */
+ 
+Server Actions to parse text from file and generate events objects
+*/
 
-import { openai } from '@ai-sdk/openai'; // Importing the OpenAI SDK
-import { convertToCoreMessages, generateText, streamText } from 'ai'; // Importing utility functions from the 'ai' module
+// import { openai } from '@ai-sdk/openai'; // Importing the OpenAI SDK
 import { z } from 'zod'; // Importing Zod for schema validation
+import { openai } from "@ai-sdk/openai"
+import { generateObject } from 'ai'; // Importing utility functions from the 'ai' module
+import ical, { ICalEventData } from 'ical-generator';
+import { PROMPTGEN } from '../content/ai_prompts';
 
-// Define the POST function to handle incoming requests
-export async function generateEvents(textData: string) {
-  
-  // Call the streamText function to generate a response using the OpenAI model
-  const result = await streamText({
-    model: openai('gpt-4o'), // Specify the model to use
-    system: QUIZ_AGENT_PROMPT, // Provide the system prompt
-    prompt: textData,
-    tools: {
-      generateQuizQuestion: {
-        description: 'Generate a multiple choice quiz question where each answer is a list of countries', // Description of the tool
-        parameters: z.object({
-          question: z.string().describe("The question to ask the user"), // Schema for the question parameter
-          number: z.number().describe("The number of the question generated."), // Schema for the number parameter
-          options: z.array(z.string()).describe("The list of possible answers, with each one being a country's name"), // Schema for the options parameter
-          answer: z.string() // Schema for the answer parameter
-        })
-      }
-    }
+export async function generateEvents(content: string) {
+  const { object } = await generateObject({
+    model: openai("gpt-4o"),
+    schema: z.array(
+      z.object({
+        title: z.string().describe("The title of the event"),
+        date: z.string().describe("The date of the event"),
+        time: z.string().describe("The time of the event. If no time is found, set it to midnight."),
+        description: z.string().describe("Any descriptive information -- locations, links, etc.")
+      })
+    ),
+    prompt: PROMPTGEN(content)
+    ,
+  })
+  return (object);
+}
+
+function convertEventsToICS(events: Array<{ title: string; date: string; time: string; description: string }>): string {
+  const calendar = ical({ name: 'Generated Events Calendar' });
+
+  events.forEach(event => {
+    const [year, month, day] = event.date.split('-').map(Number);
+    const [hour, minute] = event.time.split(':').map(Number);
+
+    calendar.createEvent({
+      start: new Date(year, month - 1, day, hour, minute),
+      end: new Date(year, month - 1, day, hour + 1, minute), // Assuming 1-hour duration if no end time provided
+      summary: event.title,
+      description: event.description,
+    } as ICalEventData);
   });
 
-  return result;
+  // Return the ICS data as a string
+  return calendar.toString();
 }
