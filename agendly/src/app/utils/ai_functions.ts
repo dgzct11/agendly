@@ -1,3 +1,4 @@
+'use server'
 /**
  
 Server Actions to parse text from file and generate events objects
@@ -13,13 +14,14 @@ import { PROMPTGEN } from '../content/ai_prompts';
 export async function generateEvents(content: string) {
   const { object } = await generateObject({
     model: openai("gpt-4o"),
-    schema: z.array(
-      z.object({
-        title: z.string().describe("The title of the event"),
-        date: z.string().describe("The date of the event"),
-        time: z.string().describe("The time of the event. If no time is found, set it to midnight."),
-        description: z.string().describe("Any descriptive information -- locations, links, etc.")
-      })
+    schema: z.object({
+      events: z.array(
+        z.object({
+          title: z.string().describe("The title of the event"),
+          date: z.string().describe("The date of the event"),
+          time: z.string().describe("The time of the event. If no time is found, set it to midnight."),
+          description: z.string().describe("Any descriptive information -- locations, links, etc.")
+        }) )}
     ),
     prompt: PROMPTGEN(content)
     ,
