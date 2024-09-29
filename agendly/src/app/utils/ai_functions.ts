@@ -18,9 +18,10 @@ export async function generateEvents(content: string) {
       events: z.array(
         z.object({
           title: z.string().describe("The title of the event"),
-          date: z.string().describe("The date of the event"),
-          time: z.string().describe("The time of the event. If no time is found, set it to midnight."),
-          description: z.string().describe("Any descriptive information -- locations, links, etc.")
+          startDateTime: z.string().datetime().describe("The start date and time of the event in ISO 8601. If no time is found, set it to 1 am."),
+          endDateTime: z.string().datetime().describe("The end date and time of the event. If no time is found, set it to 11:59 pm."),
+          description: z.string().describe("Any descriptive information -- locations, links, etc."),
+          timed: z.boolean().describe("Whether the event has a specific time or is an all-day event."),
         }) )}
     ),
     prompt: PROMPTGEN(content)

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { EventInterface } from '@/app/utils/types'
+import { saveEventsToCalendar } from '@/lib/calendar'
 
 
 interface ResultsComponentProps {
@@ -56,7 +57,7 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
   }
 
   const handleOption2 = () => {
-    console.log('Option 2 selected')
+    saveEventsToCalendar(events);
     // Implement option 2 functionality here
   }
 

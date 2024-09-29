@@ -1,7 +1,8 @@
 export interface EventInterface {
-    time: string;
+    startTime: string;
+    endTime: string;
     title: string;
-    date: string;
+    timed: boolean;
     description: string;
   }
   
