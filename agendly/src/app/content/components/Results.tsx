@@ -53,11 +53,11 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
     setEditingEvent(null)
   }
 
-  const handleOption1 = async () => {
+ 
   const handleOption1 = () => {
     
     console.log('Option 1 selected')
-    await DownloadICS(events)
+    DownloadICS(events)
     // Implement option 1 functionality here
   }
 
