@@ -4,11 +4,12 @@ import { useState, useRef, useEffect } from 'react'
 import { Check, Edit, Save, RefreshCw } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { EventInterface } from '@/app/utils/types'
+
 
 
 const sampleEvents: Event[] = [
-  { id: '1', title: 'Conference Call', date: "May 15 2023", subtext: 'Discuss Q4 projections with the team' },
+  { title: 'Conference Call', date: "May 15 2023", subtext: 'Discuss Q4 projections with the team' },
   { id: '2', title: 'Project Deadline', date: '2023-09-20', subtext: 'Submit final report for client review' },
   { id: '3', title: 'Team Building', date: '2023-09-25', subtext: 'Outdoor activities and lunch with colleagues' },
   { id: '4', title: 'Training Session', date: '2023-09-30', subtext: 'New software implementation workshop' },
@@ -36,8 +37,8 @@ export default function Component() {
     }
   }, [])
 
-  const handleSelect = (id: string) => {
-    setSelectedEvent(selectedEvent === id ? null : id)
+  const handleSelect = (title: string) => {
+    setSelectedEvent(selectedEvent === title ? null : title)
     setEditingEvent(null)
   }
 
@@ -48,7 +49,7 @@ export default function Component() {
 
   const handleSave = (id: string) => {
     setEvents(events.map(event => 
-      event.id === id ? { ...event, subtext: editedSubtext } : event
+      event.title === title ? { ...event, subtext: editedSubtext } : event
     ))
     setEditingEvent(null)
   }
