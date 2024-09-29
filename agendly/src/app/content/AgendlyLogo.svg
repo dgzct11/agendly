@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 120 120"
+   width="120"
+   height="120"
+   version="1.1"
+   id="svg145"
+   sodipodi:docname="AgendlyLogo.svg"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview147"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     showgrid="false"
+     width="120px"
+     inkscape:zoom="2.56"
+     inkscape:cx="41.210938"
+     inkscape:cy="35.742188"
+     inkscape:window-width="1536"
+     inkscape:window-height="898"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g143" />
+  <desc
+     id="desc113">AgendlyLogo.dxf - scale = 25.4, origin = (0.0, 0.0), method = file</desc>
+  <defs
+     id="defs127">
+    <marker
+       id="DistanceX"
+       orient="auto"
+       refX="0"
+       refY="0"
+       style="overflow:visible">
+      <path
+         d="M 3,-3 -3,3 M 0,-5 V 5"
+         style="stroke:#000000;stroke-width:0.5"
+         id="path115" />
+    </marker>
+    <pattern
+       id="Hatch"
+       patternUnits="userSpaceOnUse"
+       width="8"
+       height="8"
+       x="0"
+       y="0">
+      <path
+         d="M8 4 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path118" />
+      <path
+         d="M6 2 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path120" />
+      <path
+         d="M4 0 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path122" />
+    </pattern>
+    <symbol
+       id="*MODEL_SPACE" />
+    <symbol
+       id="*PAPER_SPACE" />
+    <marker
+       id="DistanceX-5"
+       orient="auto"
+       refX="0"
+       refY="0"
+       style="overflow:visible">
+      <path
+         d="M 3,-3 -3,3 M 0,-5 V 5"
+         style="stroke:#000000;stroke-width:0.5"
+         id="path1016" />
+    </marker>
+    <pattern
+       id="Hatch-2"
+       patternUnits="userSpaceOnUse"
+       width="8"
+       height="8"
+       x="0"
+       y="0">
+      <path
+         d="M8 4 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path1019" />
+      <path
+         d="M6 2 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path1021" />
+      <path
+         d="M4 0 l-4,4"
+         stroke="#000000"
+         stroke-width="0.25"
+         linecap="square"
+         id="path1023" />
+    </pattern>
+    <symbol
+       id="*MODEL_SPACE-2" />
+    <symbol
+       id="*PAPER_SPACE-4" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="0"
+     id="g143">
+    <path
+       d="m 2592,-7037.4803 a 528,528 0 0 0 1056,0 v -1920 a 528,528 0 0 0 -1056,0 z"
+       style="fill:none;stroke:#000000"
+       id="path131" />
+    <path
+       d="m 5952,-7037.4803 a 528,528 0 0 0 1056,0 v -1920 a 528,528 0 0 0 -1056,0 z"
+       style="fill:none;stroke:#000000"
+       id="path133" />
+    <path
+       d="m 2400,-3581.4803 h 1440 v -1440 H 2400 Z"
+       style="fill:none;stroke:#000000"
+       id="path135" />
+    <path
+       d="m 4608,-3581.4803 h 1440 v -1440 H 4608 Z"
+       style="fill:none;stroke:#000000"
+       id="path137" />
+    <path
+       d="m 2400,-1565.4803 h 1440 v -1440 H 2400 Z"
+       style="fill:none;stroke:#000000"
+       id="path139" />
+    <path
+       d="M 8000,1122.5197 V -477.48032 H 9600 V -2077.4803 H 8000 v -1600 H 6400 v 1600 H 4800 V -477.48032 H 6400 V 1122.5197 Z"
+       style="fill:none;stroke:#000000"
+       id="path141" />
+    <path
+       d="m 69.816405,28.391651 a 7.8337805,7.8337805 0 0 0 15.667561,0 V 12.724093 h 5.22252 A 20.890078,20.890078 0 0 1 111.59656,33.614172 V 64.94929 H 101.15152 V 41.970203 H 17.59121 v 54.314195 a 10.445039,10.445039 0 0 0 10.445039,10.445042 h 31.335119 v 10.44505 H 28.036249 A 20.890078,20.890078 0 0 1 7.1461709,96.284398 V 33.614172 A 20.890078,20.890078 0 0 1 28.036249,12.724093 h 5.22252 v 15.667558 a 7.8337795,7.8337795 0 0 0 15.667558,0 V 12.724093 h 20.890078 z"
+       style="fill:#0077b6;fill-opacity:1;stroke:none;stroke-width:0.276;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1030" />
+    <path
+       d="m 35.347776,28.391651 a 5.7447725,5.7447725 0 0 0 11.489545,0 V 7.5015731 a 5.7447725,5.7447725 0 0 0 -11.489545,0 z"
+       style="fill:#00b4d8;fill-opacity:1;stroke:none;stroke-width:0.276;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1032" />
+    <path
+       d="m 71.905415,28.391651 a 5.7447717,5.7447717 0 0 0 11.489542,0 V 7.5015731 a 5.7447717,5.7447717 0 0 0 -11.489542,0 z"
+       style="fill:#00b4d8;fill-opacity:1;stroke:none;stroke-width:0.276;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1034" />
+    <path
+       d="M 33.258769,65.993795 H 48.926327 V 50.326234 H 33.258769 Z"
+       style="fill:#0077b6;fill-opacity:1;stroke:none;stroke-width:0.276;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1036" />
+    <path
+       d="M 57.282358,65.993795 H 72.949919 V 50.326234 H 57.282358 Z"
+       style="fill:#48cae4;fill-opacity:1;stroke:none;stroke-width:0.276;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1038" />
+    <path
+       d="M 33.258769,87.928372 H 48.926327 V 72.260817 H 33.258769 Z"
+       style="fill:#0077b6;fill-opacity:1;stroke:none;stroke-width:0.276;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1040" />
+    <path
+       d="M 94.188165,117.17449 V 99.766098 H 111.59656 V 82.357687 H 94.188165 V 64.94929 h -17.4084 V 82.357687 H 59.371368 v 17.408411 h 17.408397 v 17.408392 z"
+       style="fill:#48cae4;fill-opacity:1;stroke:none;stroke-width:0.276;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path1042" />
+  </g>
+</svg>
