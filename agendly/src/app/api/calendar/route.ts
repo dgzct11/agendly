@@ -64,10 +64,16 @@ export async function POST(req: NextRequest) {
     const errors = [];
 
     for (const eventData of eventsData) {
+      const parsedEventData = {
+        summary: eventData.title,
+        description: eventData.description,
+        start: { dateTime: `${eventData.startDateTime}-07:00` },
+        end: { dateTime: `${eventData.endDateTime}-07:00` },
+      }
       try {
         const event = await calendar.events.insert({
           calendarId: "primary",
-          requestBody: eventData,
+          requestBody: parsedEventData,
         });
         createdEvents.push(event.data);
       } catch (error: any) {

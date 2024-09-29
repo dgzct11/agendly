@@ -18,8 +18,8 @@ export async function generateEvents(content: string) {
       events: z.array(
         z.object({
           title: z.string().describe("The title of the event"),
-          startDateTime: z.string().datetime().describe("The start date and time of the event in ISO 8601. If no time is found, set it to 1 am."),
-          endDateTime: z.string().datetime().describe("The end date and time of the event. If no time is found, set it to 11:59 pm."),
+          startDateTime: z.string().describe("The start date and time of the event in ISO 8601. If no time is found, set it to 1 am."),
+          endDateTime: z.string().describe("The end date and time of the event. If no time is found, set it to 11:59 pm."),
           description: z.string().describe("Any descriptive information -- locations, links, etc."),
           timed: z.boolean().describe("Whether the event has a specific time or is an all-day event."),
         }) )}
@@ -30,7 +30,7 @@ export async function generateEvents(content: string) {
   return (object);
 }
 
-export async function convertEventsToICS(events: Array<{ title: string; date: string; time: string; description: string }>): string {
+export async function convertEventsToICS(events: Array<{ title: string; date: string; time: string; description: string }>) {
   const calendar = ical({ name: 'Generated Events Calendar' });
 
   events.forEach(event => {
