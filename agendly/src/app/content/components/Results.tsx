@@ -8,6 +8,7 @@ import {DownloadICS} from "../downloadICS"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { EventInterface } from '@/app/utils/types'
 import { saveEventsToCalendar } from '@/lib/calendar'
+import Link from 'next/link'
 
 
 interface ResultsComponentProps {
@@ -53,6 +54,8 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
   }
 
   const handleOption1 = async () => {
+  const handleOption1 = () => {
+    
     console.log('Option 1 selected')
     await DownloadICS(events)
     // Implement option 1 functionality here
@@ -129,7 +132,7 @@ export default function ResultsComponent({events, setEvents}: ResultsComponentPr
         ))}
       </ul>
       <div className="mt-6 flex justify-center space-x-4">
-        <Button onClick={handleOption1} className='bg-blue-500'>Save as an .ICS</Button>
+        <Link href={"/upload_file"}><Button onClick={handleOption1}className='bg-blue-500'> Save as an .ICS</Button></Link>
         <Button onClick={handleOption2} className='bg-blue-500'>Sync to Google Calendar</Button>
       </div>
     </div>

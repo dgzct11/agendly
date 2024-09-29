@@ -8,9 +8,9 @@ const Navbar = () => {
     
     
     return (
-        <div className="w-full h-18 items-center drop-shadow-lg bg-white flex flex-row gap-8 border-b pt-4 pb-4">
-            <Link href={"/"} className="ml-4 flex items-center text-3xl hover:text-gray-700">
-                <img src="../AgendlyLogo.svg" className="h-12 w-12 mr-2"></img>
+        <div className="w-full h-18 items-center drop-shadow-lg bg-white flex flex-row gap-7 border-b pt-4 pb-4">
+            <Link href={"/"} className="ml-3 flex items-center text-2xl hover:text-gray-700">
+                <img src="../AgendlyLogo.svg" className="h-12 w-12 "></img>
                 <h1 className="text-dark font-bold">Agendly</h1> 
             </Link>
             <Link href={"/upload_file"} className="items-center text-xl hover:text-blue-700">
@@ -27,8 +27,8 @@ const Navbar = () => {
                             <img 
                                 src={profilePic ||''} 
                                 alt="Profile Picture" 
-                                className="border border-solid border-2 border-gray-300"
-                                style={{ borderRadius: '50%', width: '60px', height: '60px' }} 
+                                className=" border-solid border-2 border-gray-300"
+                                style={{ borderRadius: '50%', width: '45px', height: '45px' }} 
                             />
                         </div>
                     </>
